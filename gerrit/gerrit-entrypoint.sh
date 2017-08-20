@@ -20,10 +20,11 @@ if [ "$1" = "/gerrit-start.sh" ]; then
 
   # Initialize Gerrit if ${GERRIT_SITE}/git is empty.
   if [ -z "$(ls -A "$GERRIT_SITE/git")" ]; then
+    echo "Preparing strong SSH security..."
+    su-exec ${GERRIT_USER} wget --quiet https://www.bouncycastle.org/download/bcprov-jdk15on-${BOUNCY_CASTLE_VERSION}.jar --directory-prefix "${GERRIT_SITE}/lib/"
+    su-exec ${GERRIT_USER} wget --quiet https://www.bouncycastle.org/download/bcpkix-jdk15on-${BOUNCY_CASTLE_VERSION}.jar --directory-prefix "${GERRIT_SITE}/lib/"
+
     echo "First time initialize gerrit..."
-    echo "Implement strong SSH security..."
-    su-exec ${GERRIT_USER} wget -q -P "${GERRIT_SITE}/lib/" https://www.bouncycastle.org/download/bcprov-jdk15on-${BOUNCY_CASTLE_VERSION}.jar
-    su-exec ${GERRIT_USER} wget -q -P "${GERRIT_SITE}/lib/" https://www.bouncycastle.org/download/bcpkix-jdk15on-${BOUNCY_CASTLE_VERSION}.jar
     su-exec ${GERRIT_USER} java ${JAVA_OPTIONS} ${JAVA_MEM_OPTIONS} -jar "${GERRIT_WAR}" init --batch --no-auto-start -d "${GERRIT_SITE}" ${GERRIT_INIT_ARGS}
     #All git repositories must be removed when database is set as postgres or mysql
     #in order to be recreated at the secondary init below.
