@@ -1,11 +1,9 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:11-alpine
 
 MAINTAINER Silvio Haehner <info@sioh.de>
 
 ENV PORT 8010
-ENV LT_VERSION 4.3
-ENV NGRAMS_VERSION 20150819
-ENV NGRAMS_LANG de
+ENV LT_VERSION 4.5
 ADD https://www.languagetool.org/download/LanguageTool-$LT_VERSION.zip /LanguageTool-$LT_VERSION.zip
 
 RUN unzip LanguageTool-$LT_VERSION.zip && \
