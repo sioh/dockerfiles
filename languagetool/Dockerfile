@@ -1,4 +1,4 @@
-FROM openjdk:11-alpine
+FROM openjdk:11-jre-slim-alpine
 
 MAINTAINER Silvio Haehner <info@sioh.de>
 
