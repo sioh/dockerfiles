@@ -6,7 +6,7 @@ ENV PORT 8010
 ENV LT_VERSION 4.5
 ADD https://www.languagetool.org/download/LanguageTool-$LT_VERSION.zip /LanguageTool-$LT_VERSION.zip
 
-RUN apt-get -y install unzip && unzip LanguageTool-$LT_VERSION.zip && \
+RUN apt-get update && apt-get -y install unzip && unzip LanguageTool-$LT_VERSION.zip && \
     rm LanguageTool-$LT_VERSION.zip
 
 WORKDIR /LanguageTool-$LT_VERSION
